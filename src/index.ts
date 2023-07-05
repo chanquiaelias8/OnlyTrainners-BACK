@@ -1,7 +1,7 @@
-import express from 'express'
+import Server from "./models/server";
+import dotenv from "dotenv"
 
-const app = express();
+// config dotenv
+dotenv.config();
 
-app.listen(3000, () => {
-    console.log('Server on port ', 3000);
-})
+const server = new Server();
