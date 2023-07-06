@@ -1,5 +1,6 @@
 import express, {Application, Request, Response} from 'express';
-import routesUsers from '../routes/User'
+import routesUsers from './routes/User'
+import { db } from "./db";
 
 class Server {
   private app: Application;
@@ -11,6 +12,7 @@ class Server {
     this.listen();
     this.middlewares();
     this.routes();
+    this.dbConnect();
   }
 
   listen(){
@@ -31,6 +33,16 @@ class Server {
   middlewares() {
     // paseBody
     this.app.use(express.json())
+  }
+
+  async dbConnect() {
+    try {
+      await db.authenticate();
+      console.log('Base de datos conectada');
+    } catch (error) {
+      console.log(error);
+      console.log('Error al conectar la base de datos');
+    }
   }
 }
 
