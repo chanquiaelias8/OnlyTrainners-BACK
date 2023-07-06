@@ -1,3 +1,10 @@
+
+import Server from "./models/server";
+import dotenv from "dotenv"
+
+// config dotenv
+dotenv.config();
+
 import express from 'express'
 import db from '../models'
 
@@ -10,6 +17,4 @@ db.sequelize.sync().then(()=> {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Server on port ', 3000);
-})
+const server = new Server();
