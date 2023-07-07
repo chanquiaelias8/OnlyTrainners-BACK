@@ -1,5 +1,6 @@
 import express, {Application, Request, Response} from 'express';
 import routesUsers from './routes/User'
+import morgan from "morgan"
 import { db } from "./db";
 
 class Server {
@@ -33,6 +34,7 @@ class Server {
   middlewares() {
     // paseBody
     this.app.use(express.json())
+    this.app.use(morgan("dev"))
   }
 
   async dbConnect() {
