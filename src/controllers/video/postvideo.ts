@@ -6,14 +6,14 @@ const createVideo = async (req: Request, res: Response) => {
     const {
       url,
       position,
-      public: isPublic,
+      public: boolean,
       description,
     }: Omit<VideoAttributes, "idVideo"> & { public: boolean } = req.body;
 
     const newVideo = await Video.create({
       url,
       position,
-      public: isPublic,
+      public: boolean,
       description,
     });
 
