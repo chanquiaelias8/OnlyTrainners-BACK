@@ -1,5 +1,7 @@
 import { Router } from "express";
 
-const router = Router()
+const routerplans = Router()
 
-router.post("/createplan")
+routerplans.post("/createplan")
+
+export default routerplans

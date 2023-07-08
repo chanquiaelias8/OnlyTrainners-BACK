@@ -1,5 +1,6 @@
 import express, {Application, Request, Response} from 'express';
 import routesUsers from './routes/User'
+import routesVideos from './routes/videos';
 import morgan from "morgan"
 import { db } from "./db";
 
@@ -35,6 +36,7 @@ class Server {
       })
     })
     this.app.use('/users', routesUsers)
+    this.app.use('/videos', routesVideos); 
   }
 
   middlewares() {
