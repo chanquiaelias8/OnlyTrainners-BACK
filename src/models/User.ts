@@ -1,14 +1,22 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, UUIDV4 } from "sequelize";
 import { db } from "../db";
+import { UUID } from "crypto";
 
 export enum Sex {
   male="male",
   female="female",
   it="it",
 }
+export enum userType{
+  user="user",
+  trainer="trainer",
+  nutritionist="nutritionist",
+  admin="admin"
+}
 
 export interface UserAttributes {
-  idUsuario?: number;
+  idUsuario?: UUID;
+  userName:String,
   firstname: string;
   lastName: string;
   email: string;
@@ -16,15 +24,20 @@ export interface UserAttributes {
   Birthdate: Date;
   nationality?: string;
   sex: Sex;
+  type:userType
 }
 
 interface UserModel extends Model<UserAttributes>, UserAttributes {}
 
 export const User = db.define<UserModel>("User", {
   idUsuario: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue:DataTypes.UUIDV4,
     primaryKey: true,
+  },
+  userName:{ 
+    type:DataTypes.STRING,
+    allowNull:false
   },
   firstname: {
     type: DataTypes.STRING,
@@ -54,4 +67,7 @@ export const User = db.define<UserModel>("User", {
     type: DataTypes.ENUM("male", "female", "it"),
     allowNull: false,
   },
+  type:{
+    type:DataTypes.ENUM("user","trainer","nutritionist","admin")
+  }
 });

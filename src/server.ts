@@ -1,18 +1,25 @@
 import express, {Application, Request, Response} from 'express';
 import routesUsers from './routes/User'
+import morgan from "morgan"
 import { db } from "./db";
 
 class Server {
   private app: Application;
   private port: string;
 
-  constructor(){
+  constructor() {
     this.app = express();
     this.port = process.env.PORT || '3001';
-    this.listen();
     this.middlewares();
-    this.routes();
-    this.dbConnect();
+    this.dbConnect()
+      .then(() => {
+        this.routes();
+        this.listen();
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log('Error al conectar la base de datos');
+      });
   }
 
   listen(){
@@ -33,11 +40,12 @@ class Server {
   middlewares() {
     // paseBody
     this.app.use(express.json())
+    this.app.use(morgan("dev"))
   }
 
   async dbConnect() {
     try {
-      await db.authenticate();
+      await db.sync({force:false});
       console.log('Base de datos conectada');
     } catch (error) {
       console.log(error);
