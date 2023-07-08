@@ -14,15 +14,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const User_1 = __importDefault(require("./routes/User"));
+const morgan_1 = __importDefault(require("morgan"));
 const db_1 = require("./db");
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '3001';
-        this.listen();
         this.middlewares();
-        this.routes();
-        this.dbConnect();
+        this.dbConnect()
+            .then(() => {
+            this.routes();
+            this.listen();
+        })
+            .catch((error) => {
+            console.log(error);
+            console.log('Error al conectar la base de datos');
+        });
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -40,11 +47,12 @@ class Server {
     middlewares() {
         // paseBody
         this.app.use(express_1.default.json());
+        this.app.use((0, morgan_1.default)("dev"));
     }
     dbConnect() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield db_1.db.authenticate();
+                yield db_1.db.sync({ force: false });
                 console.log('Base de datos conectada');
             }
             catch (error) {
