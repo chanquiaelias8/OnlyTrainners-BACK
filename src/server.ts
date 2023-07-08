@@ -3,6 +3,7 @@ import routesUsers from './routes/User'
 import routesVideos from './routes/videos';
 import morgan from "morgan"
 import { db } from "./db";
+import routesPlans from './routes/plans';
 
 class Server {
   private app: Application;
@@ -37,6 +38,7 @@ class Server {
     })
     this.app.use('/users', routesUsers)
     this.app.use('/videos', routesVideos); 
+    this.app.use('/plans', routesPlans); 
   }
 
   middlewares() {
