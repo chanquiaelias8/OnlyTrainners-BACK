@@ -7,13 +7,19 @@ class Server {
   private app: Application;
   private port: string;
 
-  constructor(){
+  constructor() {
     this.app = express();
     this.port = process.env.PORT || '3001';
-    this.listen();
     this.middlewares();
-    this.routes();
-    this.dbConnect();
+    this.dbConnect()
+      .then(() => {
+        this.routes();
+        this.listen();
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log('Error al conectar la base de datos');
+      });
   }
 
   listen(){
@@ -39,7 +45,7 @@ class Server {
 
   async dbConnect() {
     try {
-      await db.authenticate();
+      await db.sync({force:false});
       console.log('Base de datos conectada');
     } catch (error) {
       console.log(error);
