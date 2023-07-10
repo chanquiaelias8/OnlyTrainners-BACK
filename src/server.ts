@@ -1,8 +1,10 @@
 import express, {Application, Request, Response} from 'express';
 import routesUsers from './routes/User'
+import routesVideos from './routes/videos';
 import morgan from "morgan"
 import { db } from "./db";
-
+import routesPlans from './routes/plans';
+var cors = require('cors')
 class Server {
   private app: Application;
   private port: string;
@@ -35,12 +37,15 @@ class Server {
       })
     })
     this.app.use('/users', routesUsers)
+    this.app.use('/videos', routesVideos); 
+    this.app.use('/plans', routesPlans); 
   }
 
   middlewares() {
     // paseBody
     this.app.use(express.json())
     this.app.use(morgan("dev"))
+    this.app.use(cors())
   }
 
   async dbConnect() {
@@ -49,7 +54,7 @@ class Server {
       console.log('Base de datos conectada');
     } catch (error) {
       console.log(error);
-      console.log('Error al conectar la base de datos');
+      console.log('Error al conectar la base de datos2');
     }
   }
 }

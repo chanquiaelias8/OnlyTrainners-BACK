@@ -4,17 +4,22 @@ import { Video, VideoAttributes } from "../../models/Video";
 const createVideo = async (req: Request, res: Response) => {
   try {
     const {
-      url,
-      position,
-      public: isPublic,
-      description,
-    }: Omit<VideoAttributes, "idVideo"> & { public: boolean } = req.body;
+      idEntrenador,
+      descPublica,
+      descPrivada,
+      precio,
+      etiquetas,
+      video,
+    }: VideoAttributes = req.body;
+  // }: Omit<VideoAttributes, "idVideo"> & { public: boolean } = req.body;
 
     const newVideo = await Video.create({
-      url,
-      position,
-      public: isPublic,
-      description,
+      idEntrenador,
+      descPublica,
+      descPrivada,
+      precio,
+      etiquetas,
+      video,
     });
 
     res.status(201).json(newVideo);

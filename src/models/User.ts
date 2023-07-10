@@ -16,7 +16,7 @@ export enum userType{
 
 export interface UserAttributes {
   idUsuario?: UUID;
-  userName:String,
+  userName:string,
   firstname: string;
   lastName: string;
   email: string;
