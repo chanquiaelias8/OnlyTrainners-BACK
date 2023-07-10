@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { db } from "../db";
-
+import { User } from "./User";
 
 export enum PlanType {
   diet = "diet",
@@ -8,7 +8,7 @@ export enum PlanType {
 }
 
 export interface PlanAttributes {
-  idplan?: number;
+  idPlan?: number;
   title: string;
   privateDescription: string;
   publicDescription: string;
@@ -20,7 +20,7 @@ export interface PlanAttributes {
 interface PlanModel extends Model<PlanAttributes>, PlanAttributes {}
 
 export const Plan = db.define<PlanModel>("Plan", {
-  idplan: {
+  idPlan: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
@@ -51,3 +51,5 @@ export const Plan = db.define<PlanModel>("Plan", {
   },
 });
 
+User.hasMany(Plan, { foreignKey: "idUser"});
+Plan.belongsTo(User, { foreignKey: "idUser"});
