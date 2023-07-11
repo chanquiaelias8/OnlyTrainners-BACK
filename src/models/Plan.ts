@@ -2,10 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { db } from "../db";
 import { User } from "./User";
 
-export enum PlanType {
-  diet = "diet",
-  training = "training",
-}
+
 
 export interface PlanAttributes {
   idPlan?: number;
@@ -13,7 +10,6 @@ export interface PlanAttributes {
   privateDescription: string;
   publicDescription: string;
   price: number;
-  type: PlanType;
   tags: Array<string>;
 }
 
@@ -41,10 +37,6 @@ export const Plan = db.define<PlanModel>("Plan", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  type: {
-    type: DataTypes.ENUM("diet", "training"),
-    allowNull: false,
-  },
   tags: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
@@ -53,3 +45,9 @@ export const Plan = db.define<PlanModel>("Plan", {
 
 User.hasMany(Plan, { foreignKey: "idUser"});
 Plan.belongsTo(User, { foreignKey: "idUser"});
+
+User.belongsToMany(Plan, { through: 'Favorite'});
+Plan.belongsToMany(User, { through: 'Favorite'});
+
+User.belongsToMany(Plan, { through: 'Bought'});
+Plan.belongsToMany(User, { through: 'Bought'});

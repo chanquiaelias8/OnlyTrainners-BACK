@@ -10,7 +10,6 @@ export enum Sex {
 export enum userType{
   user="user",
   trainer="trainer",
-  nutritionist="nutritionist",
   admin="admin"
 }
 
@@ -68,6 +67,6 @@ export const User = db.define<UserModel>("User", {
     allowNull: false,
   },
   type:{
-    type:DataTypes.ENUM("user","trainer","nutritionist","admin")
+    type:DataTypes.ENUM("user","trainer","admin")
   }
 });
