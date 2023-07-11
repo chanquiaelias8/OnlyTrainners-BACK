@@ -5,14 +5,14 @@ const createUser = async (req: Request, res: Response) => {
     try {
       const {
         userName,
-        firstname,
+        firstName,
         lastName,
         email,
         password,
         Birthdate,
         nationality,
         sex,
-        type
+        typeUser,
       }: UserAttributes = req.body;
 
       const haduserName =await User.count({where:{userName}})
@@ -24,14 +24,14 @@ const createUser = async (req: Request, res: Response) => {
   
       const newUser = await User.create({
         userName,
-        firstname,
+        firstName,
         lastName,
         email,
         password,
         Birthdate:birthdated,
         nationality,
         sex,
-        type
+        typeUser,
       })
       const newUserWithoutPassword = {
         ...newUser.toJSON(),

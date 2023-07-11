@@ -8,7 +8,6 @@ var cors = require('cors')
 class Server {
   private app: Application;
   private port: string;
-
   constructor() {
     this.app = express();
     this.port = process.env.PORT || '3001';
@@ -54,7 +53,7 @@ class Server {
       console.log('Base de datos conectada');
     } catch (error) {
       console.log(error);
-      console.log('Error al conectar la base de datos2');
+      console.log('Error al conectar la base de datos');
     }
   }
 }

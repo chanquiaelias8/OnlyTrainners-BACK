@@ -7,7 +7,7 @@ export const changeFirstname =async (req:Request,res:Response) => {
         if(!idUsuario||!firstname) return res.status(400).json({Error:"id usuario o firstname no fueron resividos"})
         const searchUser = await User.findByPk(idUsuario)
         if(!searchUser) return res.status(400).json({Error:"Usuario no existe"});
-        searchUser.firstname = firstname
+        searchUser.firstName = firstname
         await searchUser.save()
         res.status(200).json({...searchUser.toJSON(),password:undefined})
     } catch (error:any) {

@@ -4,9 +4,12 @@ import { Plan } from "./Plan";
 
 export interface VideoAttributes {
   idVideo?: number;
-  url: string;
-  publico: boolean;
-  desc: string;
+  idEntrenador: number
+  descPublica: string;
+  descPrivada: string;
+  precio: number;
+  etiquetas: string;
+  video: string
 }
 
 interface VideoModel extends Model<VideoAttributes>, VideoAttributes {}
@@ -17,19 +20,32 @@ export const Video = db.define<VideoModel>("Video", {
     autoIncrement: true,
     primaryKey: true,
   },
-  url: {
+  idEntrenador: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  descPublica: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  publico: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  desc: {
+  descPrivada: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
+  precio: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  etiquetas: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  
+  video: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 }, { timestamps: false});
 
-Plan.hasMany(Video, { foreignKey: "idPlan"});
-Video.belongsTo(Plan, { foreignKey: "idPlan"});
+// Plan.hasMany(Video, { foreignKey: "idplan", as: "videos" });
+// Video.belongsTo(Plan, { foreignKey: "idplan", as: "plan" });
