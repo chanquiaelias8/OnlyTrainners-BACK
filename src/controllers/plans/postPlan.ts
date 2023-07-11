@@ -9,7 +9,6 @@ const createPlan = async (req: Request, res: Response) => {
       privateDescription,
       publicDescription,
       price,
-      type,
       tags,
       videos,
     }: PlanAttributes & { videos: VideoAttributes[] } = req.body;
@@ -20,7 +19,6 @@ const createPlan = async (req: Request, res: Response) => {
       privateDescription,
       publicDescription,
       price,
-      type,
       tags,
     });
 
@@ -30,8 +28,7 @@ const createPlan = async (req: Request, res: Response) => {
         Video.create({
           idVideo:video.idVideo,
           url: video.url,
-          position: video.position,
-          public: video.public,
+          publico: video.publico,
           description: video.description,
         })
       );

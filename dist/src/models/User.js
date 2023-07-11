@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.Sex = void 0;
+exports.User = exports.userType = exports.Sex = void 0;
 const sequelize_1 = require("sequelize");
 const db_1 = require("../db");
 var Sex;
@@ -9,11 +9,21 @@ var Sex;
     Sex["female"] = "female";
     Sex["it"] = "it";
 })(Sex || (exports.Sex = Sex = {}));
+var userType;
+(function (userType) {
+    userType["user"] = "user";
+    userType["trainer"] = "trainer";
+    userType["admin"] = "admin";
+})(userType || (exports.userType = userType = {}));
 exports.User = db_1.db.define("User", {
     idUsuario: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
+    },
+    userName: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
     },
     firstname: {
         type: sequelize_1.DataTypes.STRING,
@@ -43,4 +53,7 @@ exports.User = db_1.db.define("User", {
         type: sequelize_1.DataTypes.ENUM("male", "female", "it"),
         allowNull: false,
     },
+    type: {
+        type: sequelize_1.DataTypes.ENUM("user", "trainer", "admin")
+    }
 });

@@ -12,7 +12,6 @@ export enum userType{
   trainer="trainer",
   admin="admin"
 }
-
 export interface UserAttributes {
   idUsuario?: UUID;
   userName:string,

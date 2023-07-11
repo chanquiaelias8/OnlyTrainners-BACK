@@ -3,13 +3,13 @@ import { db } from "../db";
 import { User } from "./User";
 
 export interface ChatAttributes {
-  Chat: string;
+  msj: string;
 }
 
 interface ChatModel extends Model<ChatAttributes>, ChatAttributes {}
 
 export const Chat = db.define<ChatModel>("Chat", {
-  Chat: {
+  msj: {
     type: DataTypes.STRING,
     allowNull: false,
   },

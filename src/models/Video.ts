@@ -6,7 +6,7 @@ export interface VideoAttributes {
   idVideo?: number;
   url: string;
   publico: boolean;
-  desc: string;
+  description: string;
 }
 
 interface VideoModel extends Model<VideoAttributes>, VideoAttributes {}
@@ -25,7 +25,7 @@ export const Video = db.define<VideoModel>("Video", {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  desc: {
+  description: {
     type: DataTypes.STRING,
     allowNull: false,
   }

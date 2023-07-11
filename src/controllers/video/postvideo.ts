@@ -7,7 +7,7 @@ const createVideo = async (req: Request, res: Response) => {
       idVideo,
       url,
       publico,
-      desc
+      description
     }: VideoAttributes = req.body;
   // }: Omit<VideoAttributes, "idVideo"> & { public: boolean } = req.body;
 
@@ -15,7 +15,7 @@ const createVideo = async (req: Request, res: Response) => {
       idVideo,
       url,
       publico,
-      desc
+      description
     });
 
     res.status(201).json(newVideo);
